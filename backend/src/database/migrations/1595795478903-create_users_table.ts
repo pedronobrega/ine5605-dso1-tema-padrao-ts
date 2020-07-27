@@ -1,16 +1,33 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreateKeyTable1595795037091 implements MigrationInterface {
+export class CreateUsersTable1595795478903 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         queryRunner.createTable(new Table({
-            name: 'keys',
+            name: 'users',
             columns: [
                 {
                     name: 'id', 
                     type: 'integer', 
                     isPrimary: true,
-                    generationStrategy: 'increment'
+                    generationStrategy: 'increment',
+                    isGenerated: true
+                },
+                {
+                    name: 'name',
+                    type: 'varchar'
+                },
+                {
+                    name: 'birthdate',
+                    type: 'datetime'
+                },
+                {
+                    name: 'role',
+                    type: 'varchar'
+                },
+                {
+                    name: 'phone',
+                    type: 'varchar'
                 },
                 {
                     name: 'created_at',
@@ -27,7 +44,7 @@ export class CreateKeyTable1595795037091 implements MigrationInterface {
                 {
                     name: 'deleted_at',
                     type: 'datetime',
-                    default: 'now()',
+                    default: null,
                     isNullable: true
                 }
             ]
@@ -35,7 +52,7 @@ export class CreateKeyTable1595795037091 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.dropTable('keys')
+        queryRunner.dropTable('users')
     }
 
 }

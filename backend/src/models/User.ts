@@ -1,10 +1,8 @@
 import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn} from "typeorm";
+import GeneralModel from "./GeneralModel";
 
 @Entity('users')
-export class User {
-
-    @PrimaryGeneratedColumn()
-    id!: number;
+export class User extends GeneralModel {
 
     @Column({ length: 255 })
     name!: string
@@ -26,5 +24,17 @@ export class User {
 
     @DeleteDateColumn()
     deleted_at!: Date
+
+    toJson() {
+        return {
+            id: this.id,
+            name: this.name,
+            birthdate: this.birthdate,
+            role: this.role,
+            phone: this.phone,
+            created_at: this.created_at,
+            updated_at: this.updated_at
+        }
+    }
 
 }

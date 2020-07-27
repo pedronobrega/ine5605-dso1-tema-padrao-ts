@@ -1,10 +1,8 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm'
+import GeneralModel from './GeneralModel'
 
 @Entity('cars')
-export class Car {
-
-    @PrimaryGeneratedColumn('increment')
-    id!: number
+export class Car extends GeneralModel{
 
     @Column({ length: 255 })
     plate!: string
@@ -33,4 +31,17 @@ export class Car {
     @DeleteDateColumn()
     deleted_at!: Date
 
+    toJson() {
+        return {
+            id: this.id,
+            plate: this.plate,
+            model: this.model,
+            brand: this.brand,
+            year: this.year,
+            kilometer: this.kilometer,
+            tier: this.tier,
+            created_at: this.created_at,
+            updated_at: this.updated_at,
+        }
+    }
 }

@@ -1,9 +1,8 @@
 import { Router } from 'express'
-import UserController from '../controllers/UserController'
+import carRouter from './car.routes'
 
 const routes = Router()
 
-routes.get('/users', UserController.index)
-routes.post('/users', UserController.create)
+routes.use('/cars', carRouter)
 
 export default routes

@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import EmailService from '../services/EmailService'
 
 const users = [
     {name: 'Jorge', email: 'mail@mail.com'}
@@ -10,16 +9,6 @@ export default {
         return res.json(users)
     },
     async create(req: Request, res: Response) {
-        const emailService = new EmailService()
-
-        emailService.sendMail({
-            receipt: users[0],
-            message: { 
-                subject: 'Bem-vindo ao sistema', 
-                body: 'Seja bem-vindo'
-            }
-        })
-
         return res.send()
     }
 }

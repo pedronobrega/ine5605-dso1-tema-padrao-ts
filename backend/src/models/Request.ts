@@ -1,10 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm'
+import GeneralModel from './GeneralModel'
 
 @Entity('requests')
-export class Request {
-
-    @PrimaryGeneratedColumn('increment')
-    id!: number
+export class Request extends GeneralModel {
 
     @Column()
     devolution_date!: Date
@@ -23,4 +21,15 @@ export class Request {
 
     @DeleteDateColumn()
     deleted_at!: Date
+
+    toJson() {
+        return {
+            id: this.id,
+            devolution_date: this.devolution_date,
+            accepted: this.accepted,
+            reason: this.reason,
+            created_at: this.created_at,
+            updated_at: this.updated_at
+        }
+    }
 }

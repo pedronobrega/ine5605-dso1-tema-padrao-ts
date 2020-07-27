@@ -10,7 +10,8 @@ export class CreateRequestsTable1595795469306 implements MigrationInterface {
                     name: 'id', 
                     type: 'integer', 
                     isPrimary: true,
-                    generationStrategy: 'increment'
+                    generationStrategy: 'increment',
+                    isGenerated: true
                 },
                 {
                     name: 'devolution_date',
@@ -40,7 +41,7 @@ export class CreateRequestsTable1595795469306 implements MigrationInterface {
                 {
                     name: 'deleted_at',
                     type: 'datetime',
-                    default: 'now()',
+                    default: null,
                     isNullable: true
                 }
 

@@ -11,7 +11,8 @@ export class CreateCarsTable1595790571391 implements MigrationInterface {
                         name: 'id', 
                         type: 'integer', 
                         isPrimary: true,
-                        generationStrategy: 'increment'
+                        generationStrategy: 'increment',
+                        isGenerated: true
                     },
                     {
                         name: 'plate',
@@ -58,7 +59,7 @@ export class CreateCarsTable1595790571391 implements MigrationInterface {
                     {
                         name: 'deleted_at',
                         type: 'datetime',
-                        default: 'now()',
+                        default: null,
                         isNullable: true
                     }
                 ]
