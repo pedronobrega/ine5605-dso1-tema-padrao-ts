@@ -3,7 +3,7 @@ import KeyService from "../services/KeyService";
 import { Key } from "../models/Key";
 
 export default {
-    async get (req: Request, res: Response) {
+    async get(req: Request, res: Response) {
         try {
             const keyService = KeyService.getInstance()
             const keys: Key[] = await keyService.find()

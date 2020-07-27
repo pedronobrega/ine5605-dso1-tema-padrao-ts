@@ -1,7 +1,3 @@
-import { Repository } from "typeorm";
-import { Car } from "../models/Car";
-import { Key } from "../models/Key";
-
 export default abstract class GeneralService {
 
     protected repository: any;
