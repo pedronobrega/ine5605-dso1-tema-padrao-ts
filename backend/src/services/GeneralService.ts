@@ -11,7 +11,7 @@ export default abstract class GeneralService {
     }
 
     async findById(id: number | string) {
-        return await this.repository.findOne()
+        return await this.repository.findOne(id)
     }
 
     async create(body: {}) {

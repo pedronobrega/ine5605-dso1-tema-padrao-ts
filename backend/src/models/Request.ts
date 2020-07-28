@@ -4,6 +4,9 @@ import GeneralModel from './GeneralModel'
 @Entity('requests')
 export class Request extends GeneralModel {
 
+    @PrimaryGeneratedColumn('increment')
+    public id!: number;
+    
     @Column()
     devolution_date!: Date
 

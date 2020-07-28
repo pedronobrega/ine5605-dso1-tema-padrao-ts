@@ -4,6 +4,9 @@ import GeneralModel from './GeneralModel'
 @Entity('keys')
 export class Key extends GeneralModel{
 
+    @PrimaryGeneratedColumn('increment')
+    public id!: number;
+    
     @CreateDateColumn()
     created_at!: Date
 

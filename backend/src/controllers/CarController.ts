@@ -35,9 +35,14 @@ export default {
         return res.status(200).json(car ? car.toJson() : {})
     },
     async update(req: Request, res: Response) {
-        const carService = CarService.getInstance()
-        const car: Car = await carService.update(req.params.id, req.body)
-        return res.status(200).json(car ? car.toJson() : {})
+        try {
+            const carService = CarService.getInstance()
+            const car: Car = await carService.update(req.params.id, req.body)
+            return res.status(200).json(car ? car.toJson() : {})   
+        } catch (error) {
+            console.log('error message >> ', error.message)
+            return res.status(400).end()
+        }
     },
     async delete(req: Request, res: Response) {
         const carService = CarService.getInstance()

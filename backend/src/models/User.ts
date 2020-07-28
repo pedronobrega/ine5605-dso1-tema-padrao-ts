@@ -4,6 +4,9 @@ import GeneralModel from "./GeneralModel";
 @Entity('users')
 export class User extends GeneralModel {
 
+    @PrimaryGeneratedColumn('increment')
+    public id!: number;
+
     @Column({ length: 255 })
     name!: string
 

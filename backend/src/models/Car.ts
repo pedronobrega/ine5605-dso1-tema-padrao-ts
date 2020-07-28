@@ -4,6 +4,9 @@ import GeneralModel from './GeneralModel'
 @Entity('cars')
 export class Car extends GeneralModel{
 
+    @PrimaryGeneratedColumn('increment')
+    public id!: number;
+
     @Column({ length: 255 })
     plate!: string
 
