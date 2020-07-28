@@ -10,7 +10,7 @@ export default class RequestService extends GeneralService {
         super(getCustomRepository(RequestRepository))
     }
 
-    public getInstance() {
+    public static getInstance() {
         if(!RequestService.instance) {
             RequestService.instance = new RequestService()
         }
