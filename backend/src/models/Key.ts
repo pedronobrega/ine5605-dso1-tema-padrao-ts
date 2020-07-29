@@ -1,12 +1,21 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm'
 import GeneralModel from './GeneralModel'
+import { Car } from './Car';
+import { Request } from './Request';
 
 @Entity('keys')
 export class Key extends GeneralModel{
 
     @PrimaryGeneratedColumn('increment')
-    public id!: number;
+    id!: number;
     
+    @OneToOne(type => Car, key => Key, { eager: true })
+    @JoinColumn({ name: 'car_id' })
+    car!: Car
+
+    @OneToMany(type => Request, key => Key, { eager: true })
+    requests!: Request[]
+
     @CreateDateColumn()
     created_at!: Date
 
@@ -19,6 +28,7 @@ export class Key extends GeneralModel{
     toJson() {
         return {
             id: this.id,
+            car_id: this.car.id,
             created_at: this.created_at,
             updated_at: this.updated_at,
         }

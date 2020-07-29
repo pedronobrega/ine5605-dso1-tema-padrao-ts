@@ -1,11 +1,12 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm'
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn, OneToOne } from 'typeorm'
 import GeneralModel from './GeneralModel'
+import { Key } from './Key';
 
 @Entity('cars')
 export class Car extends GeneralModel{
 
     @PrimaryGeneratedColumn('increment')
-    public id!: number;
+    id!: number;
 
     @Column({ length: 255 })
     plate!: string
@@ -24,6 +25,9 @@ export class Car extends GeneralModel{
 
     @Column({ unsigned: true })
     tier!: number
+
+    @OneToOne(type => Key, car => Car, { eager: true })
+    key!: Key
 
     @CreateDateColumn()
     created_at!: Date

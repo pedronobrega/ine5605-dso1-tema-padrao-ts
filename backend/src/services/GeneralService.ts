@@ -1,3 +1,6 @@
+import { Equal } from "typeorm";
+
+
 export default abstract class GeneralService {
 
     protected repository: any;
@@ -7,11 +10,19 @@ export default abstract class GeneralService {
     }
 
     async find() {
-        return await this.repository.find()
+        return await this.repository.find({
+            where: {
+                deleted_at: null
+            }
+        })
     }
 
     async findById(id: number | string) {
-        return await this.repository.findOne(id)
+        return await this.repository.findOne(id, {
+            where: {
+                deleted_at: null
+            }
+        })
     }
 
     async create(body: {}) {
@@ -19,7 +30,11 @@ export default abstract class GeneralService {
     }
 
     async update(id: number| string, body: {}) {
-        await this.repository.update(id, body)
+        try {
+            await this.repository.update(id, body)
+        } catch (error) {   
+            console.log('error message >> ', error.message)
+        }
         return this.findById(id)
     }
 

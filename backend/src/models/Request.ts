@@ -1,20 +1,30 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, RelationId, JoinColumn } from 'typeorm'
 import GeneralModel from './GeneralModel'
+import { User } from './User';
+import { Key } from './Key';
 
 @Entity('requests')
 export class Request extends GeneralModel {
 
     @PrimaryGeneratedColumn('increment')
-    public id!: number;
+    id!: number;
     
-    @Column()
+    @Column({ nullable: true })
     devolution_date!: Date
 
     @Column()
     accepted!: boolean
 
-    @Column({ length: 255 })
+    @Column({ length: 255, nullable: true })
     reason!: string
+
+    @ManyToOne(type => User, requests => Request, {nullable: false, eager:true })
+    @JoinColumn({ name: 'user_id' })
+    user!: User
+
+    @ManyToOne(type => Key, requests => Request, { nullable: false, eager: true })
+    @JoinColumn({ name: 'key_id' })
+    key!: Key
 
     @CreateDateColumn()
     created_at!: Date
@@ -28,6 +38,8 @@ export class Request extends GeneralModel {
     toJson() {
         return {
             id: this.id,
+            user_id: this.user.id,
+            key_id: this.key.id,
             devolution_date: this.devolution_date,
             accepted: this.accepted,
             reason: this.reason,

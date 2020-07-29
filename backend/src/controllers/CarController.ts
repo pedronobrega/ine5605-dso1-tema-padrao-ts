@@ -23,7 +23,7 @@ export default {
         try {
             const carService = CarService.getInstance()
             const car: Car = await carService.create(req.body)
-            return res.status(201).json(car.toJson())
+            return res.status(201).json(car)
         } catch(error) {
             console.log('error message >> ', error.message)
             return res.status(400).end()

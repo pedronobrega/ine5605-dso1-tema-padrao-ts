@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, request } from "express";
 import RequestService from "../services/RequestService";
 import { Request as RequestModel } from '../models/Request'
 
@@ -23,7 +23,7 @@ export default {
         try {
             const requestService = RequestService.getInstance()
             const request: RequestModel = await requestService.create(req.body)
-            return res.status(201).json(request.toJson())
+            return res.status(201).json(request)
         } catch (error) {
             console.log('error message >> ', error.message)
             return res.status(400).end()
@@ -48,5 +48,28 @@ export default {
         const requestService = RequestService.getInstance()
         const isDeleted = await requestService.delete(req.params.id)
         return res.status(200).json(isDeleted)
+    },
+    async endRequest(req: Request, res: Response) {
+        try {
+            const requestService = RequestService.getInstance()
+            const request: RequestModel = await requestService.endRequest(req.params.id)
+            return res.status(200).json(request.toJson())
+        } catch (error) {
+            console.log('error message >> ', error.message)
+            return res.status(400).end()
+        }
+    },
+    async findRequestByUserId(req: Request, res: Response) {
+        try {
+            const requestService = RequestService.getInstance()
+            const requests: RequestModel[] = await requestService.findRequestByUserId(req.params.userId)
+            return res.status(200)
+                .json(
+                    requests ? requests.map(request => (request.toJson())) : {}
+                )
+        } catch (error) {
+            console.log('error message >> ', error.message)
+            return res.status(400).end()
+        }
     }
 }

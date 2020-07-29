@@ -23,7 +23,7 @@ export default {
         try {
             const userService = UserService.getInstance()
             const user: User = await userService.create(req.body)
-            return res.status(200).json(user.toJson())
+            return res.status(200).json(user)
         } catch (error) {
             console.log('error message >> ', error.message)
             return res.status(400).end()
@@ -44,5 +44,14 @@ export default {
             return res.status(400).end()
         }
     },
-    async delete(req: Request, res: Response) {}
+    async delete(req: Request, res: Response) {
+        try {
+            const userService = UserService.getInstance()
+            const isDeleted = await userService.delete(req.params.id)
+            return res.status(200).json(isDeleted)
+        } catch (error) {
+            console.log('error message >> ', error.message)
+            return res.status(400).end()
+        }
+    }
 }

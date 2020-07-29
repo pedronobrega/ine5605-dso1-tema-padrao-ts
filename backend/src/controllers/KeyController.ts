@@ -23,7 +23,7 @@ export default {
         try {
             const keyService = KeyService.getInstance()
             const key: Key = await keyService.create(req.body)
-            return res.status(201).json(key.toJson()) 
+            return res.status(201).json(key) 
         } catch (error) {
             console.log('error message >> ', error.message)
             return res.status(400).end()

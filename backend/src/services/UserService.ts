@@ -5,6 +5,7 @@ import UserRepository from "../repositories/UserRepository";
 export default class UserService extends GeneralService {
 
     private static instance: UserService
+    protected repository!: UserRepository
 
     private constructor() {
         super(getCustomRepository(UserRepository))

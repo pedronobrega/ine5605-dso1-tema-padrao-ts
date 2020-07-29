@@ -1,11 +1,12 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToMany} from "typeorm";
 import GeneralModel from "./GeneralModel";
+import { Request } from "./Request";
 
 @Entity('users')
 export class User extends GeneralModel {
 
     @PrimaryGeneratedColumn('increment')
-    public id!: number;
+    id!: number;
 
     @Column({ length: 255 })
     name!: string
@@ -18,6 +19,9 @@ export class User extends GeneralModel {
 
     @Column({ length: 255 })
     phone!: string
+
+    @OneToMany(type => Request, user => User, { eager: true })
+    requests!: Request[]
 
     @CreateDateColumn()
     created_at!: Date
