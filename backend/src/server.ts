@@ -1,10 +1,11 @@
+import "reflect-metadata"
 import express from 'express'
 import cors from 'cors'
 import routes from './routes/routes'
-import './database/connection'
+import connection from "./database/connection"
 import bodyParser from 'body-parser'
-import "reflect-metadata"
 
+connection.create()
 const app = express()
 
 app.use(cors())

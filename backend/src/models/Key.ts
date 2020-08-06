@@ -7,28 +7,28 @@ import { Request } from './Request';
 export class Key extends GeneralModel{
 
     @PrimaryGeneratedColumn('increment')
-    id!: number;
+    id?: number;
     
-    @OneToOne(type => Car, key => Key, { eager: true })
+    @OneToOne(type => Car, key => Key, { eager: false })
     @JoinColumn({ name: 'car_id' })
-    car!: Car
+    car?: Car
 
-    @OneToMany(type => Request, key => Key, { eager: true })
-    requests!: Request[]
+    @OneToMany(type => Request, key => Key, { eager: false })
+    requests?: Request[]
 
     @CreateDateColumn()
-    created_at!: Date
+    created_at?: Date
 
     @UpdateDateColumn()
-    updated_at!: Date
+    updated_at?: Date
 
     @DeleteDateColumn()
-    deleted_at!: Date
+    deleted_at?: Date
 
     toJson() {
         return {
             id: this.id,
-            car_id: this.car.id,
+            car_id: this.car ? this.car.id : null,
             created_at: this.created_at,
             updated_at: this.updated_at,
         }

@@ -7,39 +7,39 @@ import { Key } from './Key';
 export class Request extends GeneralModel {
 
     @PrimaryGeneratedColumn('increment')
-    id!: number;
+    id?: number;
     
     @Column({ nullable: true })
-    devolution_date!: Date
+    devolution_date?: Date
 
     @Column()
-    accepted!: boolean
+    accepted?: boolean
 
     @Column({ length: 255, nullable: true })
-    reason!: string
+    reason?: string
 
-    @ManyToOne(type => User, requests => Request, {nullable: false, eager:true })
+    @ManyToOne(type => User, requests => Request, {nullable: false, eager: false })
     @JoinColumn({ name: 'user_id' })
-    user!: User
+    user?: User
 
-    @ManyToOne(type => Key, requests => Request, { nullable: false, eager: true })
+    @ManyToOne(type => Key, requests => Request, { nullable: false, eager: false })
     @JoinColumn({ name: 'key_id' })
-    key!: Key
+    key?: Key
 
     @CreateDateColumn()
-    created_at!: Date
+    created_at?: Date
 
     @UpdateDateColumn()
-    updated_at!: Date
+    updated_at?: Date
 
     @DeleteDateColumn()
-    deleted_at!: Date
+    deleted_at?: Date
 
     toJson() {
         return {
             id: this.id,
-            user_id: this.user.id,
-            key_id: this.key.id,
+            user_id: this.user ? this.user.id : null,
+            key_id: this.key ? this.key.id : null,
             devolution_date: this.devolution_date,
             accepted: this.accepted,
             reason: this.reason,

@@ -6,31 +6,31 @@ import { Request } from "./Request";
 export class User extends GeneralModel {
 
     @PrimaryGeneratedColumn('increment')
-    id!: number;
+    id?: number;
 
     @Column({ length: 255 })
-    name!: string
+    name?: string
 
     @Column()
-    birthdate!: Date
+    birthdate?: Date
 
     @Column({ length: 255 })
-    role!: string
+    role?: string
 
     @Column({ length: 255 })
-    phone!: string
+    phone?: string
 
-    @OneToMany(type => Request, user => User, { eager: true })
-    requests!: Request[]
+    @OneToMany(type => Request, user => User, { eager: false })
+    requests?: Request[]
 
     @CreateDateColumn()
-    created_at!: Date
+    created_at?: Date
 
     @UpdateDateColumn()
-    updated_at!: Date
+    updated_at?: Date
 
     @DeleteDateColumn()
-    deleted_at!: Date
+    deleted_at?: Date
 
     toJson() {
         return {
