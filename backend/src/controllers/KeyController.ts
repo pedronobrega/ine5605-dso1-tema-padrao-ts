@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import KeyService from "../services/KeyService";
-import { Key } from "../models/Key";
+import { Key } from "../models/Key.entity";
 
 export default {
     async get(req: Request, res: Response) {
@@ -31,12 +31,12 @@ export default {
     },
     async findById(req: Request, res: Response) {
         const keyService = KeyService.getInstance()
-        const key: Key = await keyService.findById(req.params.id)
+        const key: Key | undefined = await keyService.findById(req.params.id)
         return res.status(200).json(key ? key.toJson() : {})
     },
     async update(req: Request, res: Response) {
         const keyService = KeyService.getInstance()
-        const key: Key = await keyService.update(req.params.id, req.body)
+        const key: Key | undefined = await keyService.update(req.params.id, req.body)
         return res.status(200).json(key ? key.toJson() : {})
     },
     async delete(req: Request, res: Response) {

@@ -1,6 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToMany} from "typeorm";
 import GeneralModel from "./GeneralModel";
-import { Request } from "./Request";
+import { Request } from "./Request.entity";
 
 @Entity('users')
 export class User extends GeneralModel {

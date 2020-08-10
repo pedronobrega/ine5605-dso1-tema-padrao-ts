@@ -1,15 +1,14 @@
-import GeneralService from "./GeneralService";
 import RequestRepository from "../repositories/RequestRepository";
 import { getCustomRepository, Equal } from "typeorm";
-import { Request } from "../models/Request";
+import { Request } from "../models/Request.entity";
 
-export default class RequestService extends GeneralService {
+export default class RequestService {
 
     private static instance: RequestService
-    protected repository!: RequestRepository
+    private repository!: RequestRepository
 
     private constructor() {
-        super(getCustomRepository(RequestRepository))
+        this.repository = getCustomRepository(RequestRepository)
     }
 
     public static getInstance() {
@@ -21,7 +20,7 @@ export default class RequestService extends GeneralService {
     }
 
     public async endRequest(id: number | string) {
-        const request: Request = await this.update(
+        const request: Request | undefined = await this.update(
             id, 
             {devolution_date: new Date(Date.now())}
         )
@@ -36,6 +35,43 @@ export default class RequestService extends GeneralService {
             }
         })
         return requests
+    }
+
+    public async find() {
+        return await this.repository.find({
+            where: {
+                deleted_at: null
+            }
+        })
+    }
+
+    public async findById(id: number | string) {
+        return await this.repository.findOne(id, {
+            where: {
+                deleted_at: null
+            }
+        })
+    }
+
+    public async create(body: {}) {
+        return await this.repository.save(body)
+    }
+
+    public async update(id: number| string, body: {}) {
+        try {
+            await this.repository.update(id, body)
+        } catch (error) {   
+            console.log('error message >> ', error.message)
+        }
+        return this.findById(id)
+    }
+
+    public async delete(id: string | number) {
+        const model = await this.findById(id)
+        if(model && !model.deleted_at) {
+            await this.repository.softDelete(id)
+        }
+        return true
     }
 
 }

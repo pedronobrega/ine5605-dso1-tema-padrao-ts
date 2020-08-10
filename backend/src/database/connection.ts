@@ -1,12 +1,9 @@
 import { createConnection, getConnection } from 'typeorm'
+import 'reflect-metadata'
 
 const connection = {
     async create() {
         await createConnection()
-    },
-
-    async close() {
-        await getConnection().close()
     },
 
     async clear() {
@@ -15,7 +12,7 @@ const connection = {
 
         entities.forEach(async (entity) => {
             const repository = await connection.getRepository(entity.name)
-            await repository.query(`DELETE FROM ${entity.tableName}`)
+            await repository.query('DELETE FROM `' + entity.tableName + '`')
           })
     }
 }

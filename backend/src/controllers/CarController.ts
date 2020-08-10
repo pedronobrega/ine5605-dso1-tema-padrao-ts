@@ -1,6 +1,6 @@
 import { Response, Request } from 'express'
 import CarService from '../services/CarService'
-import { Car } from '../models/Car'
+import { Car } from '../models/Car.entity'
 
 export default {
     async get(req: Request, res: Response) {
@@ -37,7 +37,7 @@ export default {
     async update(req: Request, res: Response) {
         try {
             const carService = CarService.getInstance()
-            const car: Car = await carService.update(req.params.id, req.body)
+            const car: Car | undefined = await carService.update(req.params.id, req.body)
             return res.status(200).json(car ? car.toJson() : {})   
         } catch (error) {
             console.log('error message >> ', error.message)

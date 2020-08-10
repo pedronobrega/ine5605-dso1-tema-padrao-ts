@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import UserService from '../services/UserService'
-import { User } from '../models/User'
+import { User } from '../models/User.entity'
 
 export default {
     async get(req: Request, res: Response) {
@@ -31,14 +31,14 @@ export default {
     },
     async findById(req: Request, res: Response) {
         const userService = UserService.getInstance()
-        const user: User = await userService.findById(req.params.id)
+        const user: User | undefined = await userService.findById(req.params.id)
         return res.status(200).json(user ? user.toJson() : {})
     },
     async update(req: Request, res: Response) {
         try {
             const userService = UserService.getInstance()
-            const user: User = await userService.update(req.params.id, req.body)
-            return res.status(200).json(user.toJson())
+            const user: User | undefined = await userService.update(req.params.id, req.body)
+            return res.status(200).json(user ? user.toJson() : {})
         } catch (error) {
             console.log('error message >> ', error.message)
             return res.status(400).end()

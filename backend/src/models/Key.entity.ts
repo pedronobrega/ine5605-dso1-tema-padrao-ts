@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm'
 import GeneralModel from './GeneralModel'
-import { Car } from './Car';
-import { Request } from './Request';
+import { Car } from './Car.entity';
+import { Request } from './Request.entity';
 
 @Entity('keys')
 export class Key extends GeneralModel{
